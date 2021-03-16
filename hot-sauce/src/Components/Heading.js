@@ -2,7 +2,7 @@ import React from 'react'
 
 const Heading = () => {
     return (
-        <div>
+        <div className='sky'>
             <h1>Hot Sauces of the World</h1>
         </div>
     )
