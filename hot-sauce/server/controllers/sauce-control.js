@@ -1,38 +1,86 @@
-let sauces = []
-let id = 0
+const SampleSauce = [
+    {
+        id: 1,
+        name: "Sauce 1",
+        region: "North America"
+
+    },
+    {
+        id: 2,
+        name: "Sauce 2",
+        region: "South America"
+    },
+    {
+        id: 3,
+        name: "Sauce 3",
+        region: "Europe"
+    },
+    {
+        id: 4,
+        name: "Sauce 4",
+        region: "Asia"
+    },
+    {
+        id: 5,
+        name: "Sauce 5",
+        region: "Australia"
+    },
+    {
+        id: 6,
+        name: "Sauce 6",
+        region: "Africa"
+    },
+    {
+        id: 7,
+        name: "Sauce 7",
+        region: "Antarctica"
+    }
+];
+
+let id = 8;
 
 module.exports = {
-    read: (req, res) => {
-        res.status(200).send(sauces)
+    getSauces: (req, res) => {
+        res.status(200).send(SampleSauce)
     },
-    create: (req, res) => {
-        // const { name, region } = req.body
-        sauces.push({
-            id: id,
-            name: req.body.name,
-            region: req.body.region,
-        })
-        id++
-        req.status(200).send(sauces)
-    },
-    update: (req, res) => {
-        let index = null;
-        sauces.forEach((sauce, i) => {
-            if (sauce.id === Number(req.params.id)) index = i;
-        });
-        sauces[index] = {
-            id: sauces[index].id,
-            name: req.body.name || sauces[index].name,
-            region: req.body.region || sauces[index].region
+
+    addSauce: (req, res) => {
+        // const { name, region } = req.body;
+        let {
+            id,
+            name,
+            region,
+        } = req.body;
+        let newSauce = {
+            id,
+            name,
+            region
         };
-        res.status(200).send(sauces)
+        id++
+        SampleSauce.push(newSauce);
+        req.status(200).send(SampleSauce)
     },
-    delete: (req, res) => {
-        let index = null;
-        sauces.forEach((sauce, i) => {
-            if (sauce.id === Number(req.params.id)) index = i;
-        });
-        sauces.splice(index, 1);
-        res.status(200).send(sauces);
+
+    editSauce: (req, res) => {
+        let { id } = req.params;
+        let {
+            name,
+            region
+        } = req.query;
+
+        let index = SampleSauce.findIndex(sauce => sauce.id === +id);
+
+
+        SampleSauce[index].name = name;
+        SampleSauce[index].region = region;
+
+        res.status(200).send(SampleSauce);
+    },
+
+    deleteSauce: (req, res) => {
+        let { id } = req.params;
+        SampleSauce.findIndex(sauce => sauce.id === +id);
+        index !== SampleSauce.splice(index, 1);
+        res.status(200).send(SampleSauce);
     }
 }

@@ -4,14 +4,14 @@ const app = express();
 
 const port = 5555;
 
-const sauces = require('../sauces.json')
+// const sauces = require('../sauces.json')
 const sc = require('./controllers/sauce-control')
 
 app.use(express.json())
 
-app.get('/api/sauces', sc.read)
-app.post('/api/sauces', sc.create)
-app.put('/api/sauces/:id', sc.update)
-app.delete('/api/sauces/:id', sc.delete)
+app.get('/api/SampleSauce', sc.getSauces)
+app.post('/api/SampleSauce', sc.addSauce)
+app.put('/api/SampleSauce/:id', sc.editSauce)
+app.delete('/api/SampleSauce/:id', sc.deleteSauce)
 
-app.listen(port, () => console.log(`tonight we done in ` + port))
+app.listen(port, () => console.log(`Server listening from port ` + port))

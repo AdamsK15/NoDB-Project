@@ -10,42 +10,48 @@ import SauceList from './Components/SauceList'
 
 class App extends Component {
   constructor() {
-    super()
+    super();
+    this.state = {
+      SampleSauce: [],
+      image: ''
+    }
   }
 
-  // componentDidMount() {
-  //   axios.get('api/SauceList', { sauce: sauce })
-  //     .then(res => {
-  //       this.setState({ caughtSauce: res.data })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  componentDidMount() {
+    axios.get('/api/SampleSauce')
+      .then(res => {
+        this.setState({ SampleSauce: res.data })
+      })
+      .catch(err => console.log(err))
+  }
 
-  // getSauce(sauce){
-  //   axios.post('/api/SauceList', {sauce: sauce})
-  //     .then(res => {
-  //       this.setState({ purchasedSauce: res.data })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  addSauce = newSauce => {
+    let { name, region } = newSauce;
 
-  // editName = (id, newName) => {
-  //   let body = {name: newName};
+    axios.post('/api/SampleSauce', { name, region })
+      .then(res => {
+        this.setState({ SampleSauce: res.data })
+      })
+      .catch(err => console.log(err))
+  }
 
-  //   axios.put(`/api/SauceList/${id}`, body)
-  //     .then(res => {
-  //       this.setState({ purchasedSauce: res.data })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+  editSauce = (id, sauce) => {
+    let { name, region } = sauce;
 
-  // removeSauce = (id) => {
-  //   axios.delete(`/api/SauceList/${id}`)
-  //     .then(res => {
-  //       this.setState({ purchasedSauce: res.data })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
+    axios.put(`/api/SampleSauce/${id}?name=${name}&region=${region}`)
+      .then(res => {
+        this.setState({ SampleSauce: res.data })
+      })
+      .catch(err => console.log(err))
+  }
+
+  deleteSauce = (id) => {
+    axios.delete(`/api/SampleSauce${id}`)
+      .then(res => {
+        this.setState({ SampleSauce: res.data })
+      })
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (<div>

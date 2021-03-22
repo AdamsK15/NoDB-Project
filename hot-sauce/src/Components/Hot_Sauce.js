@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-
+import Results from './Results'
+import SauceList from './SauceList'
 class Hot_Sauce extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             SampleSauce: [
@@ -80,24 +81,24 @@ class Hot_Sauce extends Component {
             }
         }
         this.setState({ filteredArray: filteredArray })
+
+        prop.preventDefault()
     }
 
     render() {
         return (
             <div className='airplane'>
                 <h2>Sauces</h2>
-                <ul>
-                    {this.state.SampleSauce.map(sauce => {
-                        return <li>{sauce.name}, {sauce.region}</li>
-                    })}
-                </ul>
-                <input onChange={(e) => this.handleChange(e.target.value)} />
-                <button className='confirmationButton' onClick={() => { this.filterArray(this.state.userInput) }}>Filter</button>
-                {/* <span className='display-sauce'> Original: {JSON.stringify(this.state.SampleSauce, null, 10)}</span> */}
-                <span className='resultsBox'>{JSON.stringify(this.state.filteredArray, null, 10)}</span>
+                <form>
 
+                    <SauceList />
+
+                    <input onChange={(e) => this.handleChange(e.target.value)} />
+                    <button className='confirmationButton' onClick={() => { this.filterArray(this.state.userInput) }}>Filter</button>
+                </form>
                 {/* <form className='sauceRegion'>
                     <select onChange={(e) => this.handleChange(e.target.value)}>
+                        <option value='Select Region'>Select Region</option>
                         <option value='North America'>North America</option>
                         <option value='South America'>South America</option>
                         <option value='Europe'>Europe</option>
